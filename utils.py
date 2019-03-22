@@ -53,9 +53,9 @@ def viz_network(epoch, curves,model,use_cuda) :
     # plot just the first convolutional layer weight distribution
     for idx, (n,m) in enumerate(model.named_modules()):
         if(isinstance(m,torch.nn.modules.conv.Conv2d)) :
-            print(n,m, m.weight.size())
+            #print(n,m, m.weight.size())
             conv_weights = m.weight.detach().cpu().numpy().flatten()            
-            print("epoch = {} num_cnv1w = {} cnv1w_avg = {}".format(epoch, len(conv_weights), np.mean(conv_weights)))
+            #print("epoch = {} num_cnv1w = {} cnv1w_avg = {}".format(epoch, len(conv_weights), np.mean(conv_weights)))
             plt.subplot(2,4,3)
             plt.title("Layer {} weights".format(n))
             plt.hist(conv_weights)
