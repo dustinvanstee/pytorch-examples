@@ -8,9 +8,13 @@ from torch.nn.init import xavier_normal_ , uniform_
 from torchvision.utils import make_grid
 import matplotlib.pyplot as plt
 
+# This is currently a CPU implemenation... 
+# TODO make GPU compatible with pytorch api someday ..
 def accuracy(yhat,y) :
     #print(yhat)
-    #print(y)    
+    #print(y)
+    yhat = yhat.cpu()
+    y = y.cpu()  
     yhat = [np.int(i.argmax()) for i in yhat]
     yhat = np.asarray(yhat)
     y = np.asarray(y)
