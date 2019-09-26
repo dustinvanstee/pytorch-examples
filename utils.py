@@ -33,12 +33,14 @@ def viz_network(epoch, curves,model,use_cuda) :
 
     
     # First plot the loss curves and accuracy
+    ax1 = plt.subplot(2,4,1)
+    ax2 = plt.subplot(2,4,2)
+
     for key in curves:
         loss = [x[0] for x in curves[key]]
         acc =  [float(x[1])/float(x[2]) for x in curves[key]]
         #print("acc = {}".format(acc))
         #plt.scatter(range(len(curves[key])), curves[key], label=key, linewidths=1.0)
-        ax1 = plt.subplot(2,4,1)
         #loss
         ax1.plot( loss, label=key)
         ax1.legend()
@@ -46,7 +48,6 @@ def viz_network(epoch, curves,model,use_cuda) :
         ax1.set_xlabel('epoch')
         ax1.set_ylabel('Loss')
         #acc
-        ax2 = plt.subplot(2,4,2)
         ax2.plot( acc, label=key)
         ax2.legend()
         ax2.set_title('Accuracy')
@@ -72,13 +73,13 @@ def viz_network(epoch, curves,model,use_cuda) :
                 print("epoch = {} num_cnv1g = {} cnv1g_avg = {}".format(epoch, len(conv_grads), np.mean(conv_grads)))
                 plt.hist(conv_grads)
             except(AttributeError) :
-                print("no grads")
+                print("No gradients yet.  Please be patient")
             break;
             
     # plot just the first fully connected layer weight distribution
     for idx, (n,m) in enumerate(model.named_modules()):
         if(isinstance(m,torch.nn.modules.linear.Linear)) :
-            print(m, m.weight.size())
+            # print(m, m.weight.size())
             fc_weights = m.weight.detach().cpu().numpy().flatten()
             print("epoch = {} num_fc1w = {} fc1w_avg = {}".format(epoch, len(fc_weights), np.mean(fc_weights)))
             plt.subplot(2,4,5)
@@ -92,7 +93,7 @@ def viz_network(epoch, curves,model,use_cuda) :
                 print("epoch = {} num_fc1g = {} fc1g_avg = {}".format(epoch, len(fc_grads), np.mean(fc_grads)))
                 plt.hist(fc_grads)
             except(AttributeError) :
-                print("no grads")
+                print("No gradients yet.  Please be patient")
             
 
             break;
