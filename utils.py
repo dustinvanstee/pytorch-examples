@@ -70,7 +70,7 @@ def viz_network(epoch, curves,model,use_cuda) :
             plt.title("Layer {} gradients".format(n))
             try :
                 conv_grads   =  m.weight.grad.detach().cpu().numpy().flatten()
-                print("epoch = {} num_cnv1g = {} cnv1g_avg = {}".format(epoch, len(conv_grads), np.mean(conv_grads)))
+                print("epoch: {} / Conv Layer1 gradient avg :{}".format(epoch, np.mean(conv_grads)))
                 plt.hist(conv_grads)
             except(AttributeError) :
                 print("No gradients yet.  Please be patient")
@@ -81,7 +81,7 @@ def viz_network(epoch, curves,model,use_cuda) :
         if(isinstance(m,torch.nn.modules.linear.Linear)) :
             # print(m, m.weight.size())
             fc_weights = m.weight.detach().cpu().numpy().flatten()
-            print("epoch = {} num_fc1w = {} fc1w_avg = {}".format(epoch, len(fc_weights), np.mean(fc_weights)))
+            #print("epoch = {} num_fc1w = {} fc1w_avg = {}".format(epoch, len(fc_weights), np.mean(fc_weights)))
             plt.subplot(2,4,5)
             plt.title("Layer {} weights".format(n))
             plt.hist(fc_weights)
@@ -90,7 +90,7 @@ def viz_network(epoch, curves,model,use_cuda) :
             plt.title("Layer {} gradients".format(n))
             try :
                 fc_grads   =  m.weight.grad.detach().cpu().numpy().flatten()
-                print("epoch = {} num_fc1g = {} fc1g_avg = {}".format(epoch, len(fc_grads), np.mean(fc_grads)))
+                print("epoch: {} / Fully Connected Grad avg : {}".format(epoch, np.mean(fc_grads)))
                 plt.hist(fc_grads)
             except(AttributeError) :
                 print("No gradients yet.  Please be patient")
